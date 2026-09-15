@@ -128,9 +128,9 @@ const LandingPage = () => {
             <span className="text-lg font-bold tracking-tight">Academia Pro © 2026</span>
           </div>
           <div className="flex gap-8 text-sm text-gray-400">
-            <a href="#" className="hover:text-academic-gold transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-academic-gold transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-academic-gold transition-colors">Contact Support</a>
+            <a href="/privacy" className="hover:text-academic-gold transition-colors">Privacy Policy</a>
+            <a href="/terms" className="hover:text-academic-gold transition-colors">Terms of Service</a>
+            <a href="/contact" className="hover:text-academic-gold transition-colors">Contact Support</a>
           </div>
         </div>
       </footer>

@@ -13,16 +13,16 @@ const StudentDashboard = () => {
     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
   });
 
-  useEffect(() => {
-    fetchGrades();
-  }, [fetchGrades]);
-
   const fetchGrades = useCallback(async () => {
     try {
       const res = await api.get('/grades');
       setGrades(res.data);
     } catch (err) { console.error(err); }
   }, [api]);
+
+  useEffect(() => {
+    fetchGrades();
+  }, [fetchGrades]);
 
   const handleClock = async () => {
     try {

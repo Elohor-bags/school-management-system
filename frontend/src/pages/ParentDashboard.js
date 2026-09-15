@@ -17,10 +17,6 @@ const ParentDashboard = () => {
     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
   });
 
-  useEffect(() => {
-    fetchInitData();
-  }, [fetchInitData]);
-
   const fetchInitData = useCallback(async () => {
     try {
       const resChildren = await api.get('/children');
@@ -31,6 +27,10 @@ const ParentDashboard = () => {
       setNotifications(resNotifs.data);
     } catch (err) { console.error(err); }
   }, [api]);
+
+  useEffect(() => {
+    fetchInitData();
+  }, [fetchInitData]);
 
   const selectChild = async (child) => {
     setSelectedChild(child);

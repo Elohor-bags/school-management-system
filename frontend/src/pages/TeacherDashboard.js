@@ -17,16 +17,16 @@ const TeacherDashboard = () => {
     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
   });
 
-  useEffect(() => {
-    fetchStudents();
-  }, [fetchStudents]);
-
   const fetchStudents = useCallback(async () => {
     try {
       const res = await api.get('/students');
       setStudents(res.data);
     } catch (err) { console.error(err); }
   }, [api]);
+
+  useEffect(() => {
+    fetchStudents();
+  }, [fetchStudents]);
 
   const fetchAnalytics = async (id) => {
     try {

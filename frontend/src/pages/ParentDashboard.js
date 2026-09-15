@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
-import { User, Calendar, Bell, BookOpen } from 'lucide-react';
+import { User, Calendar, Bell, BookOpen, LayoutDashboard, LogOut, GraduationCap } from 'lucide-react';
+import Button from '../components/ui/Button';
+import Card from '../components/ui/Card';
 
 const ParentDashboard = () => {
   const { user, logout } = useAuth();
@@ -43,96 +45,178 @@ const ParentDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
-      <nav className="w-64 bg-green-800 text-white p-6 flex flex-col">
-        <h1 className="text-xl font-bold mb-8">Parent Portal</h1>
-        <div className="flex-1 space-y-4">
-          <div className="flex items-center gap-2 p-2 bg-green-700 rounded cursor-pointer"><User size={20}/> Children</div>
-          <div className="flex items-center gap-2 p-2 hover:bg-green-700 rounded cursor-pointer"><Calendar size={20}/> Events</div>
-          <div className="flex items-center gap-2 p-2 hover:bg-green-700 rounded cursor-pointer"><Bell size={20}/> Notifications</div>
+    <div className="min-h-screen bg-academic-slate flex">
+      {/* Sidebar */}
+      <nav className="w-72 bg-academic-navy text-white p-6 flex flex-col shadow-xl">
+        <div className="flex items-center gap-3 mb-12 px-2">
+          <div className="bg-academic-gold p-2 rounded-lg">
+            <GraduationCap className="text-academic-navy" size={24} />
+          </div>
+          <span className="text-xl font-bold tracking-tight">Academia Pro</span>
         </div>
-        <button onClick={logout} className="bg-red-600 p-2 rounded mt-auto">Logout</button>
+
+        <div className="flex-1 space-y-2">
+          <div className="flex items-center gap-3 p-3 bg-academic-gold text-academic-navy rounded-xl font-bold cursor-pointer shadow-md">
+            <LayoutDashboard size={20} /> Parent Portal
+          </div>
+          <div className="flex items-center gap-3 p-3 hover:bg-white/10 rounded-xl cursor-pointer transition-all text-gray-300 hover:text-white">
+            <User size={20} /> My Children
+          </div>
+          <div className="flex items-center gap-3 p-3 hover:bg-white/10 rounded-xl cursor-pointer transition-all text-gray-300 hover:text-white">
+            <Calendar size={20} /> Events
+          </div>
+          <div className="flex items-center gap-3 p-3 hover:bg-white/10 rounded-xl cursor-pointer transition-all text-gray-300 hover:text-white">
+            <Bell size={20} /> Notifications
+          </div>
+        </div>
+
+        <Button
+          variant="ghost"
+          onClick={logout}
+          className="mt-auto justify-start text-gray-300 hover:text-white border-white/10 hover:bg-white/10"
+        >
+          <LogOut size={20} /> Logout
+        </Button>
       </nav>
 
-      <main className="flex-1 p-8 overflow-y-auto">
-        <header className="mb-8 flex justify-between items-center">
-          <h2 className="text-3xl font-bold">Welcome, {user?.name}</h2>
-          <div className="bg-white px-4 py-2 rounded-full shadow-sm flex items-center gap-2">
-            <Bell className="text-yellow-600" size={20}/>
-            <span className="font-bold">{notifications.length} New Alerts</span>
+      {/* Main Content */}
+      <main className="flex-1 p-10 overflow-y-auto">
+        <header className="mb-10 flex justify-between items-center">
+          <div>
+            <h2 className="text-4xl font-black text-academic-navy">Welcome, {user?.name}</h2>
+            <p className="text-slate-500 mt-1">Stay connected with your children's academic progress.</p>
+          </div>
+          <div className="flex items-center gap-4 bg-white p-2 rounded-2xl shadow-soft border border-gray-100">
+            <div className="w-10 h-10 rounded-full bg-academic-navy flex items-center justify-center text-academic-gold font-bold">
+              {user?.name?.[0] || 'P'}
+            </div>
+            <div className="pr-4">
+              <p className="text-sm font-bold text-academic-navy leading-none">{user?.name}</p>
+              <p className="text-xs text-slate-500">Parent Portal</p>
+            </div>
           </div>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          <div className="bg-white p-6 rounded-lg shadow-md col-span-1">
-            <h3 className="text-xl font-semibold mb-4">Your Children</h3>
-            <div className="space-y-2">
+        {/* Quick Stats Row */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+          <Card className="bg-gradient-to-br from-academic-navy to-blue-900 text-white border-none">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-blue-200 text-sm font-medium">Registered Children</p>
+                <h3 className="text-3xl font-black mt-1">{children.length}</h3>
+              </div>
+              <div className="bg-white/20 p-3 rounded-2xl">
+                <User size={24} />
+              </div>
+            </div>
+          </Card>
+          <Card className="bg-white">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-slate-500 text-sm font-medium">Upcoming Events</p>
+                <h3 className="text-3xl font-black text-academic-navy mt-1">{events.length}</h3>
+              </div>
+              <div className="bg-academic-navy/5 p-3 rounded-2xl text-academic-navy">
+                <Calendar size={24} />
+              </div>
+            </div>
+          </Card>
+          <Card className="bg-white">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-slate-500 text-sm font-medium">New Notifications</p>
+                <h3 className="text-3xl font-black text-academic-navy mt-1">{notifications.length}</h3>
+              </div>
+              <div className="bg-academic-gold/10 p-3 rounded-2xl text-academic-gold">
+                <Bell size={24} />
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Children List */}
+          <Card className="col-span-1" title="Your Children">
+            <div className="space-y-3">
               {children.map(c => (
                 <button
                   key={c.id}
                   onClick={() => selectChild(c)}
-                  className={`w-full text-left p-3 rounded transition ${selectedChild?.id === c.id ? 'bg-green-100 border-l-4 border-green-600' : 'hover:bg-gray-100'}`}
+                  className={`w-full text-left p-4 rounded-2xl transition-all duration-200 ${selectedChild?.id === c.id ? 'bg-academic-navy text-white shadow-md scale-105' : 'bg-academic-slate hover:bg-gray-100 text-academic-navy'}`}
                 >
-                  {c.first_name} {c.last_name} <span className="text-xs text-gray-500 block">Grade {c.grade_level}</span>
+                  <div className="font-bold">{c.first_name} {c.last_name}</div>
+                  <div className={`text-xs ${selectedChild?.id === c.id ? 'text-blue-200' : 'text-slate-500'}`}>Grade {c.grade_level}</div>
                 </button>
               ))}
             </div>
-          </div>
+          </Card>
 
-          <div className="col-span-3 space-y-6">
+          <div className="col-span-3 space-y-8">
             {selectedChild ? (
               <>
-                <div className="bg-white p-6 rounded-lg shadow-md">
-                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2"><Calendar className="text-green-600"/> Attendance History</h3>
-                  <table className="w-full text-left">
-                    <thead className="bg-gray-50">
-                      <tr><th className="p-2">Date</th><th className="p-2">Status</th><th className="p-2">In</th><th className="p-2">Out</th></tr>
-                    </thead>
-                    <tbody>
-                      {attendance.map((a, i) => (
-                        <tr key={i} className="border-b">
-                          <td className="p-2">{a.date}</td>
-                          <td className={`p-2 font-bold ${a.status === 'present' ? 'text-green-600' : 'text-red-600'}`}>{a.status}</td>
-                          <td className="p-2 text-sm">{a.check_in_time ? new Date(a.check_in_time).toLocaleTimeString() : '-'}</td>
-                          <td className="p-2 text-sm">{a.check_out_time ? new Date(a.check_out_time).toLocaleTimeString() : '-'}</td>
+                <Card title="Attendance History" subtitle={`Tracking for ${selectedChild.first_name}`}>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse">
+                      <thead className="text-slate-400 text-sm uppercase tracking-wider border-b border-gray-100">
+                        <tr>
+                          <th className="pb-4 font-semibold">Date</th>
+                          <th className="pb-4 font-semibold">Status</th>
+                          <th className="pb-4 font-semibold">Check In</th>
+                          <th className="pb-4 font-semibold">Check Out</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                      </thead>
+                      <tbody className="divide-y divide-gray-50">
+                        {attendance.map((a, i) => (
+                          <tr key={i} className="group hover:bg-academic-slate transition-colors">
+                            <td className="py-4 text-sm">{a.date}</td>
+                            <td className={`py-4 font-bold ${a.status === 'present' ? 'text-green-600' : 'text-red-600'}`}>{a.status}</td>
+                            <td className="py-4 text-sm text-slate-500">{a.check_in_time ? new Date(a.check_in_time).toLocaleTimeString() : '-'}</td>
+                            <td className="py-4 text-sm text-slate-500">{a.check_out_time ? new Date(a.check_out_time).toLocaleTimeString() : '-'}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </Card>
 
-                <div className="bg-white p-6 rounded-lg shadow-md">
-                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2"><BookOpen className="text-green-600"/> Academic Performance</h3>
+                <Card title="Academic Performance" subtitle={`Current marks for ${selectedChild.first_name}`}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {grades.map((g, i) => (
-                      <div key={i} className="p-4 border rounded flex justify-between items-center">
-                        <span className="font-medium">{g.subject}</span>
-                        <span className="text-lg font-bold">{g.score} / {g.max_score}</span>
+                      <div key={i} className="p-4 rounded-2xl border border-gray-100 bg-academic-slate/30 flex justify-between items-center hover:shadow-md transition-all">
+                        <span className="font-bold text-academic-navy">{g.subject}</span>
+                        <span className="text-lg font-black text-academic-gold">{g.score} / {g.max_score}</span>
                       </div>
                     ))}
                   </div>
-                </div>
+                </Card>
               </>
             ) : (
-              <div className="bg-white p-12 rounded-lg shadow-md text-center text-gray-500">
-                Please select a child to view their records.
-              </div>
+              <Card className="flex items-center justify-center py-20 text-center space-y-4">
+                <div className="bg-academic-navy/5 p-6 rounded-full text-academic-navy">
+                  <User size={48} />
+                </div>
+                <div className="max-w-xs">
+                  <h3 className="text-xl font-bold text-academic-navy">No Child Selected</h3>
+                  <p className="text-slate-500">Please select a child from the list on the left to view their academic records.</p>
+                </div>
+              </Card>
             )}
 
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-4">Upcoming Events</h3>
-              <div className="space-y-3">
+            <Card title="Upcoming School Events" subtitle="Stay informed about important dates">
+              <div className="space-y-4">
                 {events.map((e, i) => (
-                  <div key={i} className="p-3 border-l-4 border-green-600 bg-gray-50 flex justify-between">
-                    <div>
-                      <span className="font-bold">{e.title}</span>
-                      <p className="text-sm text-gray-600">{e.description}</p>
+                  <div key={i} className="p-4 rounded-2xl border-l-4 border-academic-gold bg-academic-slate/50 flex justify-between items-center hover:bg-white transition-all group">
+                    <div className="space-y-1">
+                      <span className="font-bold text-academic-navy group-hover:text-academic-gold transition-colors">{e.title}</span>
+                      <p className="text-sm text-slate-600">{e.description}</p>
                     </div>
-                    <span className="text-sm font-medium text-gray-500">{new Date(e.event_date).toDateString()}</span>
+                    <div className="text-right">
+                      <span className="text-xs font-bold text-slate-400 uppercase">{new Date(e.event_date).toDateString()}</span>
+                    </div>
                   </div>
                 ))}
               </div>
-            </div>
+            </Card>
           </div>
         </div>
       </main>

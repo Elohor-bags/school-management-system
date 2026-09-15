@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { GraduationCap, Mail, Lock } from 'lucide-react';
+import { GraduationCap } from 'lucide-react';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 import Card from '../components/ui/Card';
@@ -87,7 +87,7 @@ const Login = () => {
                   <input type="checkbox" className="rounded border-gray-300 text-academic-navy focus:ring-academic-navy" />
                   <span className="text-slate-600">Remember me</span>
                 </label>
-                <a href="#" className="text-academic-navy font-medium hover:underline">Forgot password?</a>
+                <a href="/forgot-password" className="text-academic-navy font-medium hover:underline">Forgot password?</a>
               </div>
 
               <Button type="submit" variant="primary" className="w-full py-3 text-lg">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { Users, TrendingUp, Bell, Plus, Search } from 'lucide-react';
@@ -19,14 +19,14 @@ const TeacherDashboard = () => {
 
   useEffect(() => {
     fetchStudents();
-  }, []);
+  }, [fetchStudents]);
 
-  const fetchStudents = async () => {
+  const fetchStudents = useCallback(async () => {
     try {
       const res = await api.get('/students');
       setStudents(res.data);
     } catch (err) { console.error(err); }
-  };
+  }, [api]);
 
   const fetchAnalytics = async (id) => {
     try {

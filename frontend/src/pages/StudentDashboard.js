@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { Clock, BookOpen, Calendar } from 'lucide-react';
@@ -15,14 +15,14 @@ const StudentDashboard = () => {
 
   useEffect(() => {
     fetchGrades();
-  }, []);
+  }, [fetchGrades]);
 
-  const fetchGrades = async () => {
+  const fetchGrades = useCallback(async () => {
     try {
       const res = await api.get('/grades');
       setGrades(res.data);
     } catch (err) { console.error(err); }
-  };
+  }, [api]);
 
   const handleClock = async () => {
     try {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { User, Calendar, Bell, BookOpen } from 'lucide-react';
@@ -19,9 +19,9 @@ const ParentDashboard = () => {
 
   useEffect(() => {
     fetchInitData();
-  }, []);
+  }, [fetchInitData]);
 
-  const fetchInitData = async () => {
+  const fetchInitData = useCallback(async () => {
     try {
       const resChildren = await api.get('/children');
       const resEvents = await api.get('/events');
@@ -30,7 +30,7 @@ const ParentDashboard = () => {
       setEvents(resEvents.data);
       setNotifications(resNotifs.data);
     } catch (err) { console.error(err); }
-  };
+  }, [api]);
 
   const selectChild = async (child) => {
     setSelectedChild(child);

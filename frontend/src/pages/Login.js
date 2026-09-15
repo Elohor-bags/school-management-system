@@ -5,7 +5,6 @@ import { useAuth } from '../context/AuthContext';
 import { GraduationCap } from 'lucide-react';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
-import Card from '../components/ui/Card';
 
 const Login = () => {
   const [email, setEmail] = useState('');

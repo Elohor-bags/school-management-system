@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
-import { Users, TrendingUp, Bell, Plus, Search, LayoutDashboard, LogOut, GraduationCap, BookOpen } from 'lucide-react';
+import { Users, TrendingUp, Bell, Search, LayoutDashboard, LogOut, GraduationCap, BookOpen } from 'lucide-react';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
 import Input from '../components/ui/Input';

@@ -9,7 +9,7 @@ const StudentDashboard = () => {
   const [grades, setGrades] = useState([]);
 
   const api = axios.create({
-    baseURL: 'http://localhost:5000/api/student',
+    baseURL: `${process.env.REACT_APP_API_URL}/api/student`,
     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
   });
 

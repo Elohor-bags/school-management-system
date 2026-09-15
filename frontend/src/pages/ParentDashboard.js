@@ -13,7 +13,7 @@ const ParentDashboard = () => {
   const [notifications, setNotifications] = useState([]);
 
   const api = axios.create({
-    baseURL: 'http://localhost:5000/api/parent',
+    baseURL: `${process.env.REACT_APP_API_URL}/api/parent`,
     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
   });
 
